@@ -49,6 +49,16 @@
 						<li>visualize the called mutation  with its clear pipeup information
 							in a more graphic way.</li>
 					</ul>
+					<aside class="notes">
+						El tema es que esto ya se podía hacer antes con un procesado del FASTQ, era una cadena
+						de procesado de minimo 3 programas. Esto propicia que los datos se perturben un poco,
+						que no sea tan preciso, ya que con el filtrado se pueden perder informacion dando
+						falsos negativos. Podia dar falso positivo, hay que tener en cuenta que los programas
+						que se usaban no eran especificamente para hacer esta tarea, eran de un proposito
+						más general.
+						Una ventaja es que el resultado lo podemos ver de forma gráfica con un archivo html que
+						se genera automáticamente.
+					</aside>
 				</section>
 				<section>
 					<h2>Why use it?</h2>
@@ -59,6 +69,20 @@
 						<li>can be 50X+ faster than normal pipeline (<a href="https://github.com/lh3/bwa">BWA</a> + <a href="https://github.com/samtools/samtools">Samtools</a> + <a href="https://github.com/broadinstitute/gatk">GATK</a>/<a href="http://varscan.sourceforge.net/">VarScan</a>/<a href="https://github.com/broadinstitute/mutect">Mutect</a>).</li>
 						<li>60 built-in cancer-related target mutations to search by default.</li>
 					</ul>
+					<aside class="notes">
+						Es open source: es gratis, tienes a tu disposicion el código y puedes contribuir
+						a mejorarlo.
+						Simple de usar: el programa en sí no es muy complejo. Así, la interfaz de linea de
+						comandos queda muy limpia.
+						Multi-hilado: hoy en dia cualquier ordenador tiene mas de un nucleo en su procesador.
+						Así que está bien aprovecharlos todos con la proramción concurrente para acelerar el
+						proceso.
+						Los desarrolladores aseguran que puede ser 50 veces más rápido que el procesado
+						convencional, es al que me refería antes.
+						Lleva cargadas 60 mutaciones que suelen ser las más buscadas entre las relacionadas
+						con el cancer, para que podamos usar el programa sin decirle específicamente
+						qué mutaciones queremos encontrar.
+					</aside>
 				</section>
 				<section>
 					<h2>Technologies.</h2>
@@ -70,6 +94,15 @@
 						<li class="fragment">Depends on <a href="https://zlib.net/"><code>zlib</code></a> library.</li>
 						<li class="fragment">Doesn't support Windows natively -> Cygwin-2.6.0/g++ 5.4.</li>
 					</ul>
+					<aside class="notes">
+						Esta escrito en c++. Aunque en github pone que hay una parte en c, es porque
+						los headers tienen extensión .h en vez de .hpp y github los considera c.
+						Depende únicamente de la librería zlib, que usa para manejar los ficheros
+						FASTQ comprimidos. Este tipo de fichero puede pasar de 200 MB comprimido a
+						1.3 GB.
+						El programa funciona sobre plataformas POSIX, pero en windows podemos usarlo
+						con cygwin.
+					</aside>
 				</section>
 				<section>
 					<h2>Usage.</h2>
@@ -83,6 +116,17 @@
 						mutscan -1 R1.fq -2 R2.fq -m target.csv # or
 						mutscan -1 R1.fq -2 R2.fq -m target.vcf -r hg19.fa
 					</code></pre>
+					<aside class="notes">
+						Cuando secuenciamos con Illumina tenemos dos formas de leer los datos,
+						pair-end del que obtenemos los dos extremos de la misma secuencia,
+						y single-end del que obtenemos solo un extremo.
+						Con eso ya funciona, leeria en busca de las 60 mutaciones que tiene
+						ya cargadas por defecto y listo.
+						Podemos pasarle un archivo csv con las mutaciones que queremos buscar
+						especificamente (ahora enseño un ejemplo), o un vcf, en tal caso
+						habria que pasarle el archivo fasta de la secuencia completa, no nos sirve
+						el fastaq unicamente.
+					</aside>
 				</section>
 				<section>
 					<h4>And more advanced options</h4>
@@ -105,6 +149,14 @@ options:
 				</section>
 				<section>
 					<h2>Why did I choose this software?</h2>
+					<aside class="notes">
+						Cuando leí el titulo me sorprendió porque fue leerlo y entender
+						de qué se trataba.
+						Entré al repositorio, vi que era c++, me gustó, porque
+						prefiero los lenguajes de tipado fuerte y estático. Vi que estaba
+						bien escrito. Tiene 60 estrellas, que no está mal.
+						Lo clone, lo compile, lo probe vi que era facil y me quedé con él.
+					</aside>
 				</section>
 				<section>
 					<h2>Code quality.</h2>
@@ -117,9 +169,26 @@ options:
 						<li><span class="con">Tests and functional code are in the same class</span>.</li>
 						<li><span class="con">There is no documentation related with the unit tests</span>.</li>
 					</ul>
+					<aside class="notes">
+						El codigo es modular y está bien formateado. Los nombres de la variables, las
+						clases y los métodos están bastante correctos. Aunque, eso sí,
+						están todos los archivos en la misma carpeta, se podría organizar un poco mejor.
+						En cuanto a la documentacion, el manual de usuario esta bien, está casi completo.
+						El codigo podría estar un poquito mejor comentado.
+						Los test están hechos a mano, que tiene merito, pero con un framework
+						podría estar mejor.
+						Además, los test están en las mismas clases mezclado con el codigo funcional.
+					</aside>
 				</section>
 				<section>
 					<h2>Conclusions.</h2>
+					<aside class="notes">
+						El software es util, facil de usar, mejor qu elo qu ehabia antes,
+						pero el codigo huele un pelin. Hasta ayer pensaba que el programa
+						no iba a crecer más y por eso se hizo así: poco documentado,
+						pruebas un poco chapuceras... pero vi que ayer habian añadido una nueva
+						característica, que es generar el informe en formato JSON.
+					</aside>
 				</section>
 			</div>
 		</div>
